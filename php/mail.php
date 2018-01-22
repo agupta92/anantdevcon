@@ -19,6 +19,7 @@ if (!empty($_POST)){
 
   $name = $_POST["name"];
   $email = $_POST["email"];
+  $tel = $_POST["tel"];
   $comment = $_POST["comment"];
   if($name == "")
    $data['success'] = false;
@@ -34,6 +35,7 @@ if (!empty($_POST)){
 
   $message = "NAME: $name<br>
   EMAIL: $email<br>
+  PHONE: $tel<br>
   COMMENT: $comment";
 
 
