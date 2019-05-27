@@ -39,9 +39,14 @@ if (!empty($_POST)){
   COMMENT: $comment";
 
 
-  $headers = "MIME-Version: 1.0" . "\r\n"; 
-  $headers .= "Content-type:text/html; charset=utf-8" . "\r\n"; 
+  $headers  = "MIME-Version: 1.0" . "\r\n"; 
+  $headers .= "Content-type:text/plain; charset=utf-8" . "\r\n"; 
   $headers .= "From: <$emailFrom>" . "\r\n";
+  $headers .= "Reply-To: $emailFrom\r\n";
+  $headers .= "Return-Path: $emailFrom\r\n";
+  $headers .= "X-Priority: 3\r\n";
+  $headers .= "X-Mailer: PHP". phpversion() ."\r\n" ;
+
   mail($emailTo, $emailSubject, $message, $headers);
 
   $data['success'] = true;
