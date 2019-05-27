@@ -780,6 +780,7 @@ p {
 .contact-info {
     text-align:center;
     font-size:22px;
+    margin-top : 10% !important
 }
 .info-mail {
     border:1px solid white;
