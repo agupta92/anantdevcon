@@ -11,7 +11,7 @@
 
           gtag('config', 'UA-26041300-1');
         </script>
-
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <meta charset=utf-8>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Wood Composite Plastic & PVC Production Lines</title>
@@ -995,11 +995,6 @@
                                     <strong>Well done!</strong>Your message has been sent.</div>
                                 <div id="errorSend" class="alert alert-error invisible">There was an error.</div>
                                 <form id="contact-form" action="php/mail.php">
-                                    <?php
-                                          require_once('recaptchalib.php');
-                                          $publickey = "6LdGvaUUAAAAAEI48HfwSzP4ojHEZ4430FfduVV1"; // you got this from the signup page
-                                          echo recaptcha_get_html($publickey);
-                                    ?>
                                     <div class="control-group">
                                         <div class="controls">
                                             <input class="span12" type="text" id="name" name="name" placeholder="* Your name..." />
@@ -1024,6 +1019,7 @@
                                             <div class="error left-align" id="err-comment">Please enter your comment.</div>
                                         </div>
                                     </div>
+                                    <div class="g-recaptcha" data-sitekey="6Ld9vqUUAAAAAHSdmnC8KVEnl8-GPRheKafZ9bV3"></div>
                                     <div class="control-group">
                                         <div class="controls">
                                             <button id="send-mail" class="message-btn">Send message</button>
