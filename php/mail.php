@@ -1,10 +1,22 @@
 <?php
 
 include 'functions.php';
-require_once('recaptchalib.php');
-  $privatekey = "your_private_key";
-  $resp = recaptcha_check_answer ($privatekey,$_SERVER["REMOTE_ADDR"],$_POST["recaptcha_challenge_field"],$_POST["recaptcha_response_field"]);
-  if (!$resp->is_valid) {
+  $response = $_POST["g-recaptcha-response"];
+  $url = 'https://www.google.com/recaptcha/api/siteverify';
+  $requestData = array(
+    'secret' => 'YOUR_SECRET',
+    'response' => $_POST["g-recaptcha-response"]
+  );
+  $options = array(
+    'http' => array (
+      'method' => 'POST',
+      'content' => http_build_query($requestData)
+    )
+  );
+  $context  = stream_context_create($options);
+  $verify = file_get_contents($url, false, $context);
+  $captcha_success=json_decode($verify);
+  if ($captcha_success->success==false) {
     $data['success'] = false;
   }
 
@@ -37,25 +49,25 @@ if (!empty($_POST)){
  if($comment == "")
    $data['success'] = false;
 
- if($data['success'] == true){
+  if($data['success'] == true){
 
-  $message = "NAME: $name<br>
-  EMAIL: $email<br>
-  PHONE: $tel<br>
-  COMMENT: $comment";
+    $message = "NAME: $name<br>
+    EMAIL: $email<br>
+    PHONE: $tel<br>
+    COMMENT: $comment";
 
 
-  $headers  = "MIME-Version: 1.0" . "\r\n"; 
-  $headers .= "Content-type:text/plain; charset=utf-8" . "\r\n"; 
-  $headers .= "From: <$emailFrom>" . "\r\n";
-  $headers .= "Reply-To: $emailFrom\r\n";
-  $headers .= "Return-Path: $emailFrom\r\n";
-  $headers .= "X-Priority: 3\r\n";
-  $headers .= "X-Mailer: PHP". phpversion() ."\r\n" ;
+    $headers  = "MIME-Version: 1.0" . "\r\n"; 
+    $headers .= "Content-type:text/plain; charset=utf-8" . "\r\n"; 
+    $headers .= "From: <$emailFrom>" . "\r\n";
+    $headers .= "Reply-To: $emailFrom\r\n";
+    $headers .= "Return-Path: $emailFrom\r\n";
+    $headers .= "X-Priority: 3\r\n";
+    $headers .= "X-Mailer: PHP". phpversion() ."\r\n" ;
 
-  mail($emailTo, $emailSubject, $message, $headers);
+    mail($emailTo, $emailSubject, $message, $headers);
 
-  $data['success'] = true;
-  echo json_encode($data);
-}
+    $data['success'] = true;
+    echo json_encode($data);
+  }
 }
