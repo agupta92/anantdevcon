@@ -995,6 +995,11 @@
                                     <strong>Well done!</strong>Your message has been sent.</div>
                                 <div id="errorSend" class="alert alert-error invisible">There was an error.</div>
                                 <form id="contact-form" action="php/mail.php">
+                                    <?php
+                                          require_once('recaptchalib.php');
+                                          $publickey = "6LdGvaUUAAAAAEI48HfwSzP4ojHEZ4430FfduVV1"; // you got this from the signup page
+                                          echo recaptcha_get_html($publickey);
+                                    ?>
                                     <div class="control-group">
                                         <div class="controls">
                                             <input class="span12" type="text" id="name" name="name" placeholder="* Your name..." />

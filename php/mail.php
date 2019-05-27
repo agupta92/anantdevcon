@@ -1,6 +1,12 @@
 <?php
 
 include 'functions.php';
+require_once('recaptchalib.php');
+  $privatekey = "your_private_key";
+  $resp = recaptcha_check_answer ($privatekey,$_SERVER["REMOTE_ADDR"],$_POST["recaptcha_challenge_field"],$_POST["recaptcha_response_field"]);
+  if (!$resp->is_valid) {
+    $data['success'] = false;
+  }
 
 if (!empty($_POST)){
 
